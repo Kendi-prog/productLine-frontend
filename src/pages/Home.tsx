@@ -22,7 +22,7 @@ const Home = () => {
                     const Icon = Icons[icon as keyof typeof Icons];
                     return (
                         <div key={label} className="flex flex-col gap-2">
-                            <Card className="p-28 mb-10 relative">
+                            <Card className="p-24 mb-10 relative">
                                 <div className="absolute top-6 left-10 flex items-center gap-4">
                                     <Icon className="text-[#28B5FB] text-2xl" />
                                     <p className="text-xl font-semibold text-[#1A2F43]">{label}</p>
