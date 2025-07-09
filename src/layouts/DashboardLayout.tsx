@@ -1,26 +1,17 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useState } from "react";
-import { 
-    FaHome, 
-    FaBox, 
-    FaUsers, 
-    FaShoppingCart, 
-    FaMoneyBill, 
-    FaUserTie, 
-    FaBuilding,
-    FaAngleDoubleLeft,
-    FaAngleDoubleRight
-} from "react-icons/fa";
+
+import { Icons } from "../components/Icons";
 
 
 const navItems = [
-    {name: "Home", path: "/", icon: <FaHome />},
-    {name: "Products", path: "/products", icon: <FaBox />},
-    {name: "Customers", path: "/customers", icon: <FaUsers />},
-    {name: "Orders", path: "/orders", icon: <FaShoppingCart />},
-    {name: "Payments", path: "/payments", icon: <FaMoneyBill />},
-    {name: "Employees", path: "/employees", icon: <FaUserTie />},
-    {name: "Offices", path: "/offices", icon: <FaBuilding />},
+    {name: "Home", path: "/", icon: "home"},
+    {name: "Products", path: "/products", icon: "products"},
+    {name: "Customers", path: "/customers", icon: "customers"},
+    {name: "Orders", path: "/orders", icon: "orders"},
+    {name: "Payments", path: "/payments", icon: "payments"},
+    {name: "Employees", path: "/employees", icon: "employees"},
+    {name: "Offices", path: "/offices", icon: "offices"},
 ]
 
 
@@ -45,24 +36,28 @@ const DashboardLayout = () => {
                         title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
                         className="mr-2"
                     >
-                        {collapsed ? <FaAngleDoubleRight size={10} /> : <FaAngleDoubleLeft size={15}/>}
+                        {collapsed 
+                            ? <Icons.collapseRight size={10} /> 
+                            : <Icons.collapseLeft size={15}/>}
                     </button>    
                 </div>
                 <nav className={` flex flex-col gap-4`}>
-                    {navItems.map((item) => (
-                        <NavLink
-                            key={item.name}
-                            to={item.path}
-                            title={collapsed ? item.name : ""}
-                            className={({ isActive }) =>
-                                `flex gap-3 items-center px-6 py-3 text-lg font-medium transition-colors duration-200 
-                                ${isActive ? "bg-[#234566] !text-white" : "text-[#28B5FB] hover:!text-white"}
-                                ${collapsed ? "justify-center" : "justify-start"}`}
-                            >
-                                <span>{item.icon}</span>
-                                {!collapsed && <span>{item.name}</span>}
-                        </NavLink>
-                    ))}
+                    {navItems.map((item) => {
+                        const Icon = Icons[item.icon as keyof typeof Icons];
+                        return (
+                            <NavLink
+                                key={item.name}
+                                to={item.path}
+                                title={collapsed ? item.name : ""}
+                                className={({ isActive }) =>
+                                    `flex gap-3 items-center px-6 py-3 text-lg font-medium transition-colors duration-200 
+                                    ${isActive ? "bg-[#234566] !text-white" : "text-[#28B5FB] hover:!text-white"}
+                                    ${collapsed ? "justify-center" : "justify-start"}`}
+                                >
+                                    <Icon />
+                                    {!collapsed && <span>{item.name}</span>}
+                            </NavLink>
+                        )})}
                 </nav>
             </aside>
             {/* Main COntent */}

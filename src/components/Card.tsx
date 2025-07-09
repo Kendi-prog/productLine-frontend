@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
 type CardProps = {
-    children : ReactNode,
-    className?: String
+    children : ReactNode;
+    className?: string;
 }
 
 export default function Card({children, className=""}: CardProps) {

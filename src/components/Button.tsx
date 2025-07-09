@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-    variant ?: "primary" | "secondary"
+    variant ?: "primary" | "secondary";
 }
 
 export default function Button ({ variant = "primary", className, ...props }: Props) {
