@@ -61,7 +61,7 @@ const DashboardLayout = () => {
                 </nav>
             </aside>
             {/* Main COntent */}
-            <main className="flex-1 p-6 overflow-y-auto bg-red-100"> 
+            <main className="flex-1 p-6 overflow-y-auto bg-blue-100"> 
                 <Outlet />
             </main>
 
