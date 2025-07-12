@@ -10,6 +10,8 @@ import {
   FaAngleDoubleRight,
   FaEdit,
   FaTrash,
+  FaSearch,
+  FaTimes,
 } from "react-icons/fa";
 
 
@@ -25,4 +27,6 @@ export const Icons = {
   collapseRight: FaAngleDoubleRight,
   edit: FaEdit,
   delete: FaTrash,
+  search: FaSearch,
+  close: FaTimes,
 };
