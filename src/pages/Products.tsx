@@ -1,4 +1,4 @@
-import SearchBar from "../components/SearchBar";
+import BaseLayout from "../layouts/BaseLayout";
 import Table from "../components/Table";
 
 const columns: { label: string; accessor: "name" | "price" | "category" }[] = [
@@ -18,11 +18,9 @@ const data = [
 
 const Products = () => {
     return (
-        <div className="p-4 text-lg font-semibold">
-            <h1>Products Page</h1>
-            <SearchBar placeholder="Search Products..."/>
+        <BaseLayout title="Products" subtitle="Manage your products">
             <Table columns={columns} data={data} />
-        </div>
+        </BaseLayout>        
     )
 }
 

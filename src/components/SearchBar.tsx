@@ -55,7 +55,7 @@ export default function SearchBar({ placeholder= "Search ..."} : SearchProps) {
                             setIsOpen(false);
                             setSearch("");
                         }}
-                        title="CLose search">
+                        title="Close search">
                         <Icons.close />
                     </Button>
                 </>
