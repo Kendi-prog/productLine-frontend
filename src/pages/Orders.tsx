@@ -1,8 +1,26 @@
+import BaseLayout from "../layouts/BaseLayout";
+import Table from "../components/Table";
+
+const columns: { label: string; accessor: "name" | "price" | "category" }[] = [
+  { label: "Order Name", accessor: "name" },
+  { label: "Price", accessor: "price" },
+  { label: "Category", accessor: "category" },
+];
+
+const data = [
+  { name: "Laptop", price: "$999", category: "Electronics" },
+  { name: "Chair", price: "$49", category: "Furniture" },
+  {name: "Chair", price: "$49", category: "Furniture" },
+  {name: "Chair", price: "$49", category: "Furniture" },
+];
+
+
+
 const Orders = () => {
     return (
-        <div className="p-4 text-lg font-semibold">
-            Orders Page
-        </div>
+        <BaseLayout title="Orders" subtitle="Manage your Ooders">
+            <Table columns={columns} data={data} />
+        </BaseLayout>        
     )
 }
 
