@@ -12,6 +12,7 @@ import {
   FaTrash,
   FaSearch,
   FaTimes,
+  FaEye,
 } from "react-icons/fa";
 
 
@@ -29,4 +30,5 @@ export const Icons = {
   delete: FaTrash,
   search: FaSearch,
   close: FaTimes,
+  view: FaEye,
 };

@@ -48,7 +48,7 @@ export default function SearchBar({ placeholder= "Search ..."} : SearchProps) {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder={placeholder}
-                      className="transition-all duration-300 border border-[#28B5FB] rounded-lg px-4 py-1 text-sm w-48"
+                        className="transition-all duration-300 border border-[#28B5FB] rounded- px-4 py-1 text-sm w-48 h-10"
                     />
                     <Button 
                         onClick={() => {

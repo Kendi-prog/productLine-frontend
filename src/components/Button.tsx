@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-    variant ?: "primary" | "secondary" | "ghost";
+    variant ?: "primary" | "secondary" | "icon";
 }
 
 export default function Button ({ variant = "primary", className, ...props }: Props) {
@@ -10,7 +10,7 @@ export default function Button ({ variant = "primary", className, ...props }: Pr
     const variants = {
         primary: "bg-[#4A90E2] text-white hover:bg-[#357BCF] !bg-[#4A90E2]",
         secondary: "bg-[#5B7798] text-white hover:bg-[#4C6A85]",
-        ghost: "bg-transparent hover:bg-transparent text-[#1A2F43] p-0 border-none shadow-none",
+        icon: "bg-transparent text-[#1A2F43] hover:text-[#4A90E2] p-1",
     }
     return(
         <button
