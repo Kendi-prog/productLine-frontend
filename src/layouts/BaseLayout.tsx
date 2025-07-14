@@ -6,6 +6,7 @@ import Button from "../components/Button";
 type BaseLayoutProps = {
     title: string;
     subtitle?: string;
+    className ?: string;
     // onAddClick: () => void;
     children: ReactNode;
 }
