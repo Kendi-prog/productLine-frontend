@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 
-import Home from "../pages/Home";
-import Products from "../pages/Products";
-import Customers from "../pages/Customers";
-import Orders from "../pages/Orders";
-import Payments from "../pages/Payments";
-import Employees from "../pages/Employees";
-import Offices from "../pages/Offices";
+import Home from "../pages/Home/HomePage"
+import Products from "../pages/Products/ProductsPage";
+import Customers from "../pages/Customers/CustomersPage";
+import Orders from "../pages/Orders/OrdersPage";
+import Payments from "../pages/Payments/PaymentsPage";
+import Employees from "../pages/Employees/EmployeesPage";
+import Offices from "../pages/Offices/OfficesPage";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 const AppRoutes = () => {

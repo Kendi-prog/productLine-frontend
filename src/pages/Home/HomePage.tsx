@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-import PageHeader from "../components/PageHeader";
-import Card from "../components/Card";
-import Button from "../components/Button";
-import { Icons } from "../components/Icons";
+import PageHeader from "../../components/PageHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import { Icons } from "../../components/Icons";
 
 const stats = [
   { label: "Products", count: 120, route: "/products", icon: "products" },

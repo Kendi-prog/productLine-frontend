@@ -1,5 +1,5 @@
-import BaseLayout from "../layouts/BaseLayout";
-import Table from "../components/Table";
+import BaseLayout from "../../layouts/BaseLayout";
+import Table from "../../components/Table";
 
 const columns: { label: string; accessor: "name" | "price" | "category" }[] = [
   { label: "Payment Name", accessor: "name" },

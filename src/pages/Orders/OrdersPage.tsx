@@ -1,8 +1,8 @@
-import BaseLayout from "../layouts/BaseLayout";
-import Table from "../components/Table";
+import BaseLayout from "../../layouts/BaseLayout";
+import Table from "../../components/Table";
 
 const columns: { label: string; accessor: "name" | "price" | "category" }[] = [
-  { label: "Product Name", accessor: "name" },
+  { label: "Order Name", accessor: "name" },
   { label: "Price", accessor: "price" },
   { label: "Category", accessor: "category" },
 ];
@@ -16,12 +16,12 @@ const data = [
 
 
 
-const Products = () => {
+const Orders = () => {
     return (
-        <BaseLayout title="Products" subtitle="Manage your products">
+        <BaseLayout title="Orders" subtitle="Manage your Ooders">
             <Table columns={columns} data={data} />
         </BaseLayout>        
     )
 }
 
-export default Products;
+export default Orders;

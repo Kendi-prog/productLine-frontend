@@ -1,8 +1,10 @@
-import BaseLayout from "../layouts/BaseLayout";
-import Table from "../components/Table";
+import { useState } from "react";
+import BaseLayout from "../../layouts/BaseLayout";
+import Table from "../../components/Table";
+import ProductForm from "./ProductForm";
 
 const columns: { label: string; accessor: "name" | "price" | "category" }[] = [
-  { label: "Order Name", accessor: "name" },
+  { label: "Product Name", accessor: "name" },
   { label: "Price", accessor: "price" },
   { label: "Category", accessor: "category" },
 ];
@@ -16,12 +18,14 @@ const data = [
 
 
 
-const Orders = () => {
+const Products = () => {
+  const [showForm, setShowForm] = useState(false);
     return (
-        <BaseLayout title="Orders" subtitle="Manage your Ooders">
+        <BaseLayout title="Products" subtitle="Manage your products">
             <Table columns={columns} data={data} />
+            <ProductForm onClose={() => setShowForm(false)} />
         </BaseLayout>        
     )
 }
 
-export default Orders;
+export default Products;

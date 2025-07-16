@@ -1,5 +1,5 @@
-import BaseLayout from "../layouts/BaseLayout";
-import FlipCard from "../components/FlipCard";
+import BaseLayout from "../../layouts/BaseLayout";
+import FlipCard from "../../components/FlipCard";
 
 const employees = [
   {

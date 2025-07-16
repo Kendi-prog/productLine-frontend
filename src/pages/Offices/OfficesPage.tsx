@@ -1,6 +1,6 @@
-import FlipCard from "../components/FlipCard";
-import BaseLayout from "../layouts/BaseLayout";
-import { Icons } from "../components/Icons";
+import FlipCard from "../../components/FlipCard";
+import BaseLayout from "../../layouts/BaseLayout";
+import { Icons } from "../../components/Icons";
 
 const offices = [
   {
