@@ -42,8 +42,8 @@ const Customers = () => {
       >
           <Table columns={columns} data={data} />
       </BaseLayout> 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <CustomerForm />
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} >
+        <CustomerForm onClose={() => setIsModalOpen(false)}/>
       </Modal>
     </div>
              

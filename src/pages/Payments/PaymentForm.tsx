@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Icons } from "../../components/Icons";
 import Button from "../../components/Button";
 
@@ -25,6 +26,7 @@ export default function PaymentForm ({ onClose }: PaymentFormProps) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log("Payment submitted:", formData);
+        toast.success("Payment added succesfully!!")
         onClose();
     }
 
@@ -33,7 +35,7 @@ export default function PaymentForm ({ onClose }: PaymentFormProps) {
             <div className="bg-white rounded-xl border border-[#28B5FB] shadow-xl w-full max-w-xl p-6 relative">
                 {/* Header part */}
                 <div className="flex justify-between items-center mb-4">
-                    <div className="flex items-center gap-2 text-[#1A2F43] text-xl font-bold">
+                    <div className="flex items-center gap-4 text-[#1A2F43] text-xl font-bold">
                         <Icons.payments className="text-[#28B5FB]"/>
                         Add New Payment
                     </div>

@@ -1,5 +1,8 @@
 import BaseLayout from "../../layouts/BaseLayout";
 import FlipCard from "../../components/FlipCard";
+import Modal from "../../components/Modal";
+import { useState } from "react";
+import EmployeeForm from "./EmployeeForm";
 
 const employees = [
   {
@@ -77,40 +80,49 @@ const employees = [
 ];
 
 
-
-
-
 const Employees = () => {
-    return (
-        <BaseLayout title="Employees" subtitle="See your employees">
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-                {employees.map((emp) => (
-                <FlipCard
-                    key={emp.id}
-                    className="h-64"
-                    front={
-                    <div className="flex flex-col items-center justify-center h-full gap-2">
-                        <img
-                        src={emp.image}
-                        alt={emp.name}
-                        className="w-24 h-24 rounded-full object-cover"
-                        />
-                        <p className="text-lg font-semibold text-[#1A2F43]">{emp.name}</p>
-                        <p className="text-sm text-gray-600">{emp.position}</p>
-                    </div>
-                    }
-                    back={
-                    <div className="flex flex-col justify-center h-full gap-2 text-sm text-[#1A2F43]">
-                        <p><span className="font-semibold">Email:</span> {emp.email}</p>
-                        <p><span className="font-semibold">Phone:</span> {emp.phone}</p>
-                        <p><span className="font-semibold">Department:</span> {emp.department}</p>
-                    </div>
-                    }
-                />
-                ))}
-            </div>
-        </BaseLayout>
-    )
+  const[isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <div>
+      <BaseLayout 
+        title="Employees" 
+        subtitle="See your employees"
+        onAddClick={() => setIsModalOpen(true)}
+      >
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          {employees.map((emp) => (
+          <FlipCard
+              key={emp.id}
+              className="h-64"
+              front={
+              <div className="flex flex-col items-center justify-center h-full gap-2">
+                  <img
+                  src={emp.image}
+                  alt={emp.name}
+                  className="w-24 h-24 rounded-full object-cover"
+                  />
+                  <p className="text-lg font-semibold text-[#1A2F43]">{emp.name}</p>
+                  <p className="text-sm text-gray-600">{emp.position}</p>
+              </div>
+              }
+              back={
+              <div className="flex flex-col justify-center h-full gap-2 text-sm text-[#1A2F43]">
+                  <p><span className="font-semibold">Email:</span> {emp.email}</p>
+                  <p><span className="font-semibold">Phone:</span> {emp.phone}</p>
+                  <p><span className="font-semibold">Department:</span> {emp.department}</p>
+              </div>
+              }
+          />
+          ))}
+        </div>
+      </BaseLayout>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <EmployeeForm onClose={() => setIsModalOpen(false)}/>
+      </Modal>
+    </div>
+      
+  )
 }
 
 export default Employees;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Icons } from "../../components/Icons";
 import Button from "../../components/Button";
 
@@ -24,7 +25,8 @@ export default function OrderForm ({ onClose }: OrderFormProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Product submitted:", formData);
+        console.log("Order submitted:", formData);
+        toast.success("Order created successfully!!")
         onClose();
     }
 
@@ -33,7 +35,7 @@ export default function OrderForm ({ onClose }: OrderFormProps) {
             <div className="bg-white rounded-xl border border-[#28B5FB] shadow-xl w-full max-w-xl p-6 relative">
                 {/* Header part */}
                 <div className="flex justify-between items-center mb-4">
-                    <div className="flex items-center gap-2 text-[#1A2F43] text-xl font-bold">
+                    <div className="flex items-center gap-4 text-[#1A2F43] text-xl font-bold">
                         <Icons.orders className="text-[#28B5FB]"/>
                         Create New Order
                     </div>

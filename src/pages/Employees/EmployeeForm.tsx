@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Icons } from "../../components/Icons";
 import Button from "../../components/Button";
 
@@ -26,6 +27,7 @@ export default function EmployeeForm ({ onClose }: EmployeeFormProps) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log("Employee submitted:", formData);
+        toast.success("New Employee added successfully!");
         onClose();
     }
 
@@ -34,9 +36,9 @@ export default function EmployeeForm ({ onClose }: EmployeeFormProps) {
             <div className="bg-white rounded-xl border border-[#28B5FB] shadow-xl w-full max-w-xl p-6 relative">
                 {/* Header part */}
                 <div className="flex justify-between items-center mb-4">
-                    <div className="flex items-center gap-2 text-[#1A2F43] text-xl font-bold">
+                    <div className="flex items-center gap-4 text-[#1A2F43] text-xl font-bold">
                         <Icons.products className="text-[#28B5FB]"/>
-                        Add Product
+                        New Employee
                     </div>
                     <Button onClick={onClose} title="Close">
                         <Icons.close />

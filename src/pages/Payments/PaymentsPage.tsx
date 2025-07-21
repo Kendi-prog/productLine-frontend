@@ -1,5 +1,8 @@
+import { useState } from "react";
 import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
+import Modal from "../../components/Modal";
+import PaymentForm from "./PaymentForm";
 
 const columns: { label: string; accessor: "name" | "price" | "category" }[] = [
   { label: "Payment Name", accessor: "name" },
@@ -17,11 +20,23 @@ const data = [
 
 
 const Payments = () => {
-    return (
-        <BaseLayout title="Payments" subtitle="Manage your payments">
-            <Table columns={columns} data={data} />
-        </BaseLayout>        
-    )
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <div>
+       <BaseLayout 
+        title="Payments" 
+        subtitle="Manage your payments"
+        onAddClick={() => setIsModalOpen(true)}
+      >
+          <Table columns={columns} data={data} />
+      </BaseLayout>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <PaymentForm onClose={() => setIsModalOpen(false)}/>
+      </Modal> 
+    </div>
+            
+  )
 }
 
 export default Payments;

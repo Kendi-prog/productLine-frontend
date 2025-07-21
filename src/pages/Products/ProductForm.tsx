@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Icons } from "../../components/Icons";
 import Button from "../../components/Button";
 
@@ -26,6 +27,7 @@ export default function ProductForm ({ onClose }: ProductFormProps) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log("Product submitted:", formData);
+        toast.success("Product added successfully!!");
         onClose();
     }
 

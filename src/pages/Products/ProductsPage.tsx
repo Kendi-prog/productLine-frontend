@@ -2,6 +2,7 @@ import { useState } from "react";
 import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
 import ProductForm from "./ProductForm";
+import Modal from "../../components/Modal";
 
 const columns: { label: string; accessor: "name" | "price" | "category" }[] = [
   { label: "Product Name", accessor: "name" },
@@ -19,13 +20,23 @@ const data = [
 
 
 const Products = () => {
-  const [showForm, setShowForm] = useState(false);
-    return (
-        <BaseLayout title="Products" subtitle="Manage your products">
-            <Table columns={columns} data={data} />
-            <ProductForm onClose={() => setShowForm(false)} />
-        </BaseLayout>        
-    )
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  return (
+    <div>
+      <BaseLayout 
+        title="Products" 
+        subtitle="Manage your products"
+        onAddClick={() => setIsModalOpen(true)}
+      >
+        <Table columns={columns} data={data} />
+        
+      </BaseLayout> 
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} >
+        <ProductForm onClose={() => setIsModalOpen(false)} />
+      </Modal>
+    </div>
+       
+  )
 }
 
 export default Products;

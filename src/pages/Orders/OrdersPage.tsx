@@ -1,5 +1,8 @@
+import { useState } from "react";
 import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
+import Modal from "../../components/Modal";
+import OrderForm from "./OrdersForm";
 
 const columns: { label: string; accessor: "name" | "price" | "category" }[] = [
   { label: "Order Name", accessor: "name" },
@@ -17,11 +20,23 @@ const data = [
 
 
 const Orders = () => {
-    return (
-        <BaseLayout title="Orders" subtitle="Manage your Ooders">
-            <Table columns={columns} data={data} />
-        </BaseLayout>        
-    )
+  const[isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <div>
+      <BaseLayout 
+        title="Orders" 
+        subtitle="Manage your Ooders"
+        onAddClick={() => setIsModalOpen(true)}
+      >
+          <Table columns={columns} data={data} />
+      </BaseLayout> 
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <OrderForm onClose={() => setIsModalOpen(false)}/>
+      </Modal>
+    </div>
+             
+  )
 }
 
 export default Orders;

@@ -1,6 +1,9 @@
 import FlipCard from "../../components/FlipCard";
 import BaseLayout from "../../layouts/BaseLayout";
 import { Icons } from "../../components/Icons";
+import { useState } from "react";
+import OfficeForm from "./OfficeForm";
+import Modal from "../../components/Modal";
 
 const offices = [
   {
@@ -55,32 +58,44 @@ const offices = [
 
 
 const Offices = () => {
-    return (
-        <BaseLayout title="Offices" subtitle="See your offices" className="p-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {offices.map((office) => (
-                    <FlipCard
-                    key={office.id}
-                    front={
-                        <div className="flex flex-col items-center justify-center h-full">
-                        <Icons.offices className="text-[#28B5FB] text-4xl mb-2" />
-                        <p className="text-xl font-semibold text-[#1A2F43]">{office.name}</p>
-                        <p className="text-sm text-gray-600">{office.location}</p>
-                        </div>
-                    }
-                    back={
-                        <div className="flex flex-col items-center justify-center h-full text-center text-sm text-gray-700">
-                        <p><strong>Phone:</strong> {office.phone}</p>
-                        <p><strong>Address:</strong> {office.address}</p>
-                        <p><strong>Postal Code:</strong> {office.code}</p>
-                        </div>
-                    }
-                    />
-                ))}
-                </div>
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-        </BaseLayout>
-    )
+  return (
+    <div>
+      <BaseLayout 
+        title="Offices" 
+        subtitle="See your offices" 
+        onAddClick={() => setIsModalOpen(true)}
+        className="p-6"
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {offices.map((office) => (
+            <FlipCard
+              key={office.id}
+              front={
+                  <div className="flex flex-col items-center justify-center h-full">
+                  <Icons.offices className="text-[#28B5FB] text-4xl mb-2" />
+                  <p className="text-xl font-semibold text-[#1A2F43]">{office.name}</p>
+                  <p className="text-sm text-gray-600">{office.location}</p>
+                  </div>
+              }
+              back={
+                  <div className="flex flex-col items-center justify-center h-full text-center text-sm text-gray-700">
+                  <p><strong>Phone:</strong> {office.phone}</p>
+                  <p><strong>Address:</strong> {office.address}</p>
+                  <p><strong>Postal Code:</strong> {office.code}</p>
+                  </div>
+              }
+            />
+          ))}
+        </div>
+      </BaseLayout>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <OfficeForm onClose={() => setIsModalOpen(false)}/>
+      </Modal>
+    </div>
+      
+  )
 }
 
 export default Offices;
