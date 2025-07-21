@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Icons } from "../../components/Icons";
-import clsx from "clsx";
 import Button from "../../components/Button";
 
 type ProductFormProps = {
@@ -37,7 +36,7 @@ export default function ProductForm ({ onClose }: ProductFormProps) {
                 <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center gap-2 text-[#1A2F43] text-xl font-bold">
                         <Icons.products className="text-[#28B5FB]"/>
-                        Add Product
+                        Add New Product
                     </div>
                     <Button onClick={onClose} title="Close">
                         <Icons.close />

@@ -17,7 +17,7 @@ const Home = () => {
     return (
         <div>
             <PageHeader title="Dashboard" subtitle="Welcome back, Joy 👋"/>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-15">
                 {stats.map(({ label, count, route, icon }) => {
                     const Icon = Icons[icon as keyof typeof Icons];
                     return (
