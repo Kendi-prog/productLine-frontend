@@ -2,11 +2,7 @@ import { useState } from "react";
 import { Icons } from "../../components/Icons";
 import Button from "../../components/Button";
 
-type CustomerFormProps = {
-    onClose : () => void;
-}
-
-export default function CustomerForm ({ onClose }: CustomerFormProps) {
+export default function CustomerForm () {
     const [formData, setFormData] = useState({
         customerName : "",
         phone: "",
@@ -26,22 +22,17 @@ export default function CustomerForm ({ onClose }: CustomerFormProps) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log("Customer submitted:", formData);
-        onClose();
     }
 
     return(
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
             <div className="bg-white rounded-xl border border-[#28B5FB] shadow-xl w-full max-w-xl p-6 relative">
                 {/* Header part */}
-                <div className="flex justify-between items-center mb-4">
-                    <div className="flex items-center gap-2 text-[#1A2F43] text-xl font-bold">
-                        <Icons.customers className="text-[#28B5FB]"/>
-                        Add New Customer
-                    </div>
-                    <Button onClick={onClose} title="Close">
-                        <Icons.close />
-                    </Button>
+                <div className="flex items-center gap-2 text-[#1A2F43] text-xl font-bold">
+                    <Icons.customers className="text-[#28B5FB]"/>
+                    Add New Customer
                 </div>
+            
                 {/* Form part */}
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>

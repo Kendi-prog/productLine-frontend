@@ -7,14 +7,14 @@ type BaseLayoutProps = {
     title: string;
     subtitle?: string;
     className ?: string;
-    // onAddClick: () => void;
+    onAddClick: () => void;
     children: ReactNode;
 }
 
 const BaseLayout = ({
     title,
     subtitle,
-    // onAddClick,
+    onAddClick,
     children
 }: BaseLayoutProps) => {
     return (
@@ -23,7 +23,7 @@ const BaseLayout = ({
                 <PageHeader title={title} subtitle={subtitle}/>
                 <div className="flex items-center gap-2">
                     <SearchBar placeholder={`Search ${title}...`}/>
-                    <Button>{`Add ${title}`}</Button>
+                    <Button onClick={onAddClick}>{`Add ${title}`}</Button>
                 </div>
             </div>
             <div>{children}</div>    
