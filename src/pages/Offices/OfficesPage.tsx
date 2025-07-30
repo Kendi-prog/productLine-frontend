@@ -64,7 +64,7 @@ const Offices = () => {
     <div>
       <BaseLayout 
         title="Offices" 
-        subtitle="See your offices" 
+        subtitle="Your global footprint — locations that make it happen."
         onAddClick={() => setIsModalOpen(true)}
         className="p-6"
       >

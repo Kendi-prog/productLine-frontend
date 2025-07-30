@@ -37,7 +37,7 @@ const Customers = () => {
     <div>
       <BaseLayout
         title="Customers" 
-        subtitle="Manage your Customers"
+        subtitle="Know your people — every relationship starts here."
         onAddClick={() => setIsModalOpen(true)}
       >
           <Table columns={columns} data={data} />

@@ -26,7 +26,7 @@ const Payments = () => {
     <div>
        <BaseLayout 
         title="Payments" 
-        subtitle="Manage your payments"
+        subtitle="Stay on top of transactions — organized and secure."
         onAddClick={() => setIsModalOpen(true)}
       >
           <Table columns={columns} data={data} />

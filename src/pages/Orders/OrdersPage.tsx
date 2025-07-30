@@ -26,7 +26,7 @@ const Orders = () => {
     <div>
       <BaseLayout 
         title="Orders" 
-        subtitle="Manage your Ooders"
+        subtitle="Track orders with ease and never miss a delivery."
         onAddClick={() => setIsModalOpen(true)}
       >
           <Table columns={columns} data={data} />

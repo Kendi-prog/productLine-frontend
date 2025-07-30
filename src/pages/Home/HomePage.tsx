@@ -16,7 +16,7 @@ const Home = () => {
     const navigate = useNavigate();
     return (
         <div>
-            <PageHeader title="Dashboard" subtitle="Welcome back, Joy 👋"/>
+            <PageHeader title="Dashboard" subtitle="Your control center — everything you need, all in one place."/>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-15">
                 {stats.map(({ label, count, route, icon }) => {
                     const Icon = Icons[icon as keyof typeof Icons];

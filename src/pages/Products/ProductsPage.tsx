@@ -25,7 +25,7 @@ const Products = () => {
     <div>
       <BaseLayout 
         title="Products" 
-        subtitle="Manage your products"
+        subtitle="Manage your inventory effortlessly and keep your catalog sharp."
         onAddClick={() => setIsModalOpen(true)}
       >
         <Table columns={columns} data={data} />
