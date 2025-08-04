@@ -1,26 +1,36 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
 import Modal from "../../components/Modal";
 import PaymentForm from "./PaymentForm";
+import { fetchPayments } from "../../api/payments";
 
-const columns: { label: string; accessor: "name" | "price" | "category" }[] = [
-  { label: "Payment Name", accessor: "name" },
-  { label: "Price", accessor: "price" },
-  { label: "Category", accessor: "category" },
-];
+type Payments = {
+  customerNumber: number;
+  checkNumber: String;
+  paymentDate: String;
+  amount: number;
+}
 
-const data = [
-  { name: "Laptop", price: "$999", category: "Electronics" },
-  { name: "Chair", price: "$49", category: "Furniture" },
-  {name: "Chair", price: "$49", category: "Furniture" },
-  {name: "Chair", price: "$49", category: "Furniture" },
-];
-
+const columns: { label: string, accessor: keyof Payments} [] = [
+  {label: "Customer No.", accessor: "customerNumber"},
+  {label: "Check No.", accessor: "checkNumber"},
+  {label: "Payment Date.", accessor: "paymentDate"},
+  {label: "Amount", accessor: "amount"}
+]
 
 
 const Payments = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { data = [], isLoading, isError } = useQuery({
+      queryKey: ['/customers'],
+      queryFn: fetchPayments
+    });
+  
+  if (isLoading) return <div>Loading...</div>
+  if (isError) return <div>Failed Loading Customers!!</div>
 
   return (
     <div>

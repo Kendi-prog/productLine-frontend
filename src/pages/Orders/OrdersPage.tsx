@@ -1,26 +1,41 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
 import Modal from "../../components/Modal";
 import OrderForm from "./OrdersForm";
+import { fetchOrders } from "../../api/orders";
 
-const columns: { label: string; accessor: "name" | "price" | "category" }[] = [
-  { label: "Order Name", accessor: "name" },
-  { label: "Price", accessor: "price" },
-  { label: "Category", accessor: "category" },
+type Order = {
+  orderNumber: number;
+  orderDate: string;      
+  requiredDate: string;
+  shippedDate?: string;   
+  status: string;
+  comments?: string;
+  customerNumber: number;
+};
+
+const columns: { label: string; accessor: keyof Order }[] = [
+  { label: "Order Number", accessor: "orderNumber" },
+  { label: "Order Date", accessor: "orderDate" },
+  { label: "Required Date", accessor: "requiredDate" },
+  { label: "Shipped Date", accessor: "shippedDate" },
+  { label: "Status", accessor: "status" },
+  { label: "Customer Number", accessor: "customerNumber" },
 ];
-
-const data = [
-  { name: "Laptop", price: "$999", category: "Electronics" },
-  { name: "Chair", price: "$49", category: "Furniture" },
-  {name: "Chair", price: "$49", category: "Furniture" },
-  {name: "Chair", price: "$49", category: "Furniture" },
-];
-
 
 
 const Orders = () => {
   const[isModalOpen, setIsModalOpen] = useState(false);
+
+  const { data = [], isLoading, isError } = useQuery({
+    queryKey: ['/customers'],
+    queryFn: fetchOrders
+  });
+
+  if (isLoading) return <div>Loading...</div>
+  if (isError) return <div>Failed Loading Customers!!</div>
 
   return (
     <div>

@@ -6,13 +6,25 @@ import ProductForm from "./ProductForm";
 import Modal from "../../components/Modal";
 import { fetchProducts } from "../../api/products";
 
-const columns: { label: string; accessor: string }[] = [
+type Product = {
+  productCode: string;
+  productName: string;
+  productLine: string;
+  productScale: string;
+  productVendor: string;
+  productDescription: string;
+  quantityInStock: number;
+  buyPrice: number;
+  MSRP: number;
+};
+
+
+const columns: { label: string; accessor: keyof Product }[] = [
   { label: "Product Code", accessor: "productCode" },
   { label: "Product Name", accessor: "productName" },
   { label: "Product Line", accessor: "productLine" },
   { label: "Product Scale", accessor: "productScale" },
   { label: "Vendor", accessor: "productVendor" },
-  { label: "Description", accessor: "productDescription" },
   { label: "In Stock", accessor: "quantityInStock" },
   { label: "Buy Price", accessor: "buyPrice" },
   { label: "MSRP", accessor: "MSRP" },
