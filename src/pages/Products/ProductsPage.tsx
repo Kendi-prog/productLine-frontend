@@ -15,7 +15,7 @@ type Product = {
   productDescription: string;
   quantityInStock: number;
   buyPrice: number;
-  MSRP: number;
+  msrp: number;
 };
 
 
@@ -27,7 +27,7 @@ const columns: { label: string; accessor: keyof Product }[] = [
   { label: "Vendor", accessor: "productVendor" },
   { label: "In Stock", accessor: "quantityInStock" },
   { label: "Buy Price", accessor: "buyPrice" },
-  { label: "MSRP", accessor: "MSRP" },
+  { label: "MSRP", accessor: "msrp" },
 ];
 
 
