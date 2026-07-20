@@ -24,7 +24,7 @@ const columns: { label: string; accessor: string }[] = [
   { label: "Required Date", accessor: "requiredDate" },
   { label: "Shipped Date", accessor: "shippedDate" },
   { label: "Status", accessor: "status" },
-
+  { label: "Customer Number", accessor: "customer.customerNumber" },
 ];
 
 
