@@ -4,3 +4,8 @@ export const fetchCustomers = async () => {
     const response = await api.get('/customers');
     return response.data;
 }
+
+export const createCustomer = async (customer: any) => {
+    const response = await api.post("/customers/save", customer);
+    return response.data;
+};

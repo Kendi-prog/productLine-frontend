@@ -13,9 +13,19 @@ type TableProps<T> = {
     columns: Column<T>[];
     data: T[];
     className?: string;
+    onView?: (row: T) => void;
+    onEdit?: (row: T) => void;
+    onDelete?: (row: T) => void;
 }
 
-export default function Table<T>({columns, data, className}: TableProps<T>) {
+export default function Table<T>({
+    columns, 
+    data, 
+    className, 
+    onView, 
+    onEdit, 
+    onDelete
+}: TableProps<T>) {
     const getValue = (obj: any, path: string) => {
         return path.split(".").reduce((value, key) => value?.[key], obj);
     };
@@ -60,13 +70,22 @@ export default function Table<T>({columns, data, className}: TableProps<T>) {
                                    {/* Action buttons column */}
                             <td className="border border-[#28B5FB] px-4 py-2">
                                 <div className="flex items-center gap-2">
-                                    <Button variant="icon" title="View">
+                                    <Button 
+                                        variant="icon" 
+                                        title="View"
+                                        onClick={() => onView?.(row)}>
                                     <Icons.view />
                                     </Button>
-                                    <Button variant="icon" title="Edit">
+                                    <Button 
+                                        variant="icon" 
+                                        title="Edit"
+                                        onClick={() => onEdit?.(row)}>
                                     <Icons.edit />
                                     </Button>
-                                    <Button variant="icon" title="Delete">
+                                    <Button 
+                                        variant="icon" 
+                                        title="Delete"
+                                        onClick={() => onDelete?.(row)}>
                                     <Icons.delete />
                                     </Button>
                                 </div>
