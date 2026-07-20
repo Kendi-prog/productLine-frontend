@@ -1,3 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
+import { fetchOffices } from "../../api/offices";
+
 import FlipCard from "../../components/FlipCard";
 import BaseLayout from "../../layouts/BaseLayout";
 import { Icons } from "../../components/Icons";
@@ -5,97 +8,102 @@ import { useState } from "react";
 import OfficeForm from "./OfficeForm";
 import Modal from "../../components/Modal";
 
-const offices = [
-  {
-    id: 1,
-    name: "Nairobi Office",
-    location: "Nairobi, Kenya",
-    phone: "+254-700-123456",
-    address: "Junction Mall, Ngong Rd",
-    code: "NBO-01",
-  },
-  {
-    id: 2,
-    name: "Mombasa Office",
-    location: "Mombasa, Kenya",
-    phone: "+254-711-654321",
-    address: "City Mall, Nyali",
-    code: "MSA-02",
-  },
-  {
-    id: 3,
-    name: "Kampala Office",
-    location: "Kampala, Uganda",
-    phone: "+256-772-334455",
-    address: "Garden City Mall",
-    code: "KLA-03",
-  },
-  {
-    id: 4,
-    name: "Dar es Salaam Office",
-    location: "Dar es Salaam, Tanzania",
-    phone: "+255-745-556677",
-    address: "Mlimani City Mall",
-    code: "DAR-04",
-  },
-  {
-    id: 5,
-    name: "Kigali Office",
-    location: "Kigali, Rwanda",
-    phone: "+250-789-112233",
-    address: "Kigali Heights",
-    code: "KGL-05",
-  },
-  {
-    id: 6,
-    name: "Addis Ababa Office",
-    location: "Addis Ababa, Ethiopia",
-    phone: "+251-911-445566",
-    address: "Bole Road",
-    code: "ADD-06",
-  },
-];
+type Office = {
+  officeCode: string;
+  city: string;
+  phone: string;
+  addressLine1: string;
+  addressLine2?: string;
+  state?: string;
+  country: string;
+  postalCode: string;
+  territory: string;
+};
 
 
 const Offices = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const { data = [], isLoading, isError } = useQuery({
+    queryKey: ["/offices"],
+    queryFn: fetchOffices,
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Failed Loading Offices!!</div>;
+
   return (
     <div>
-      <BaseLayout 
-        title="Offices" 
+      <BaseLayout
+        title="Offices"
         subtitle="Your global footprint — locations that make it happen."
         onAddClick={() => setIsModalOpen(true)}
         className="p-6"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {offices.map((office) => (
+          {data.map((office: Office) => (
             <FlipCard
-              key={office.id}
+              key={office.officeCode}
+              className="h-72"
               front={
-                  <div className="flex flex-col items-center justify-center h-full">
-                  <Icons.offices className="text-[#28B5FB] text-4xl mb-2" />
-                  <p className="text-xl font-semibold text-[#1A2F43]">{office.name}</p>
-                  <p className="text-sm text-gray-600">{office.location}</p>
-                  </div>
+                <div className="flex flex-col items-center justify-center h-full gap-3">
+                  <img
+                    src={`https://picsum.photos/200/200?random=${office.officeCode}`}
+                    alt={office.city}
+                    className="w-24 h-24 rounded-full object-cover border-2 border-[#28B5FB]"
+                  />
+                  <p className="text-lg font-semibold text-[#1A2F43]">
+                    Office {office.officeCode}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    {office.city}, {office.country}
+                  </p>
+                  <p className="text-xs text-[#28B5FB]">
+                    {office.territory}
+                  </p>
+                </div>
               }
               back={
-                  <div className="flex flex-col items-center justify-center h-full text-center text-sm text-gray-700">
-                  <p><strong>Phone:</strong> {office.phone}</p>
-                  <p><strong>Address:</strong> {office.address}</p>
-                  <p><strong>Postal Code:</strong> {office.code}</p>
-                  </div>
+                <div className="flex flex-col justify-center h-full gap-2 text-sm text-[#1A2F43]">
+                  <p>
+                    <span className="font-semibold">Phone:</span>{" "}
+                    {office.phone}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Address:</span>{" "}
+                    {office.addressLine1}
+                  </p>
+                  {office.addressLine2 && (
+                    <p>
+                      <span className="font-semibold">Address 2:</span>{" "}
+                      {office.addressLine2}
+                    </p>
+                  )}
+                  {office.state && (
+                    <p>
+                      <span className="font-semibold">State:</span>{" "}
+                      {office.state}
+                    </p>
+                  )}
+                  <p>
+                    <span className="font-semibold">Postal Code:</span>{" "}
+                    {office.postalCode}
+                  </p>
+                </div>
               }
             />
           ))}
         </div>
       </BaseLayout>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <OfficeForm onClose={() => setIsModalOpen(false)}/>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
+        <OfficeForm onClose={() => setIsModalOpen(false)} />
       </Modal>
     </div>
-      
-  )
-}
+  );
+};
 
 export default Offices;
