@@ -12,8 +12,14 @@ type Employees = {
   firstName : string;     
   extension : string;    
   email  : string;        
-  officeCode : string;    
-  reportsTo  : number;    
+  officeCode: {
+    officeCode: string;
+    phone: string;
+    city: string;
+  };   
+  reportsTo?: {
+    employeeNumber: number;
+  };   
   jobTitle : string;
 }
 
@@ -43,11 +49,11 @@ const Employees = () => {
               className="h-64"
               front={
               <div className="flex flex-col items-center justify-center h-full gap-2">
-                {/* <img
-                src={`https://ui-avatars.com/api/?name=${emp.firstName}+${emp.lastName}&background=random`}
-                alt={`${emp.firstName} ${emp.lastName}`}
-                className="w-24 h-24 rounded-full object-cover"
-                /> */}
+                <img
+                  src={`https://i.pravatar.cc/200?u=${emp.employeeNumber}`}
+                  alt={`${emp.firstName} ${emp.lastName}`}
+                  className="w-24 h-24 rounded-full object-cover border-2 border-[#28B5FB]"
+                />
                 <p className="text-lg font-semibold text-[#1A2F43]">{emp.firstName}</p>
                 <p className="text-sm text-gray-600">{emp.jobTitle}</p>
               </div>
@@ -55,8 +61,10 @@ const Employees = () => {
               back={
               <div className="flex flex-col justify-center h-full gap-2 text-sm text-[#1A2F43]">
                 <p><span className="font-semibold">Email:</span> {emp.email}</p>
-                <p><span className="font-semibold">Phone:</span> {emp.extension}</p>
-                <p><span className="font-semibold">Department:</span> {emp.officeCode}</p>
+                <p><span className="font-semibold">Phone:</span> {emp.officeCode?.phone}</p>
+                <p><span className="font-semibold">Office Code:</span> {emp.officeCode?.officeCode}</p>
+                <p><span className="font-semibold">City:</span> {emp.officeCode?.city}</p>
+                <p><span className="font-semibold">Reports To:</span> {emp.reportsTo?.employeeNumber || "N/A"}</p>
               </div>
               }
             />
