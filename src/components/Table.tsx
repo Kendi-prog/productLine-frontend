@@ -4,7 +4,7 @@ import Button from "./Button";
 
 type Column<T> = {
     label: string;
-    accessor: keyof T;
+    accessor: string;
 }
 
 type TableProps<T> = {
@@ -14,6 +14,9 @@ type TableProps<T> = {
 }
 
 export default function Table<T>({columns, data, className}: TableProps<T>) {
+    const getValue = (obj: any, path: string) => {
+        return path.split(".").reduce((value, key) => value?.[key], obj);
+    };
     return(
         <div className={clsx("w-full overflow-x-auto", className)}>
             <table className="min-w-full border border-[#28B5FB] border-collapse">
@@ -41,7 +44,8 @@ export default function Table<T>({columns, data, className}: TableProps<T>) {
                                 key={col.label as string}
                                 className="border border-[#28B5FB] px-4 py-2 text-[#1A2F43]"
                                 >
-                                {String(row[col.accessor])}
+                                {String(getValue(row, col.accessor))}
+                               
                                 </td>
                             ))}
                                    {/* Action buttons column */}

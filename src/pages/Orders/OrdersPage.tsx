@@ -13,16 +13,18 @@ type Order = {
   shippedDate?: string;   
   status: string;
   comments?: string;
-  customerNumber: number;
+  customer: {
+    customerNumber: number;
+  };
 };
 
-const columns: { label: string; accessor: keyof Order }[] = [
+const columns: { label: string; accessor: string }[] = [
   { label: "Order Number", accessor: "orderNumber" },
   { label: "Order Date", accessor: "orderDate" },
   { label: "Required Date", accessor: "requiredDate" },
   { label: "Shipped Date", accessor: "shippedDate" },
   { label: "Status", accessor: "status" },
-  { label: "Customer Number", accessor: "customerNumber" },
+
 ];
 
 
@@ -30,12 +32,13 @@ const Orders = () => {
   const[isModalOpen, setIsModalOpen] = useState(false);
 
   const { data = [], isLoading, isError } = useQuery({
-    queryKey: ['/customers'],
+    queryKey: ['/orders'],
     queryFn: fetchOrders
   });
 
   if (isLoading) return <div>Loading...</div>
-  if (isError) return <div>Failed Loading Customers!!</div>
+  if (isError) return <div>Failed Loading Orders!!</div>
+
 
   return (
     <div>
