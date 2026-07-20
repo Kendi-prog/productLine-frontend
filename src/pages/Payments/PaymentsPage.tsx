@@ -7,15 +7,19 @@ import PaymentForm from "./PaymentForm";
 import { fetchPayments } from "../../api/payments";
 
 type Payments = {
-  customerNumber: number;
-  checkNumber: String;
+  // customerNumber: number;
+  // checkNumber: String;
+  id: {
+    customerNumber: number;
+    checkNumber: String;
+  }
   paymentDate: String;
   amount: number;
 }
 
-const columns: { label: string, accessor: keyof Payments} [] = [
-  {label: "Customer No.", accessor: "customerNumber"},
-  {label: "Check No.", accessor: "checkNumber"},
+const columns: { label: string, accessor: string} [] = [
+  {label: "Customer No.", accessor: "id.customerNumber"},
+  {label: "Check No.", accessor: "id.checkNumber"},
   {label: "Payment Date.", accessor: "paymentDate"},
   {label: "Amount", accessor: "amount"}
 ]
