@@ -1,4 +1,6 @@
 import clsx from "clsx";
+import { useState } from "react";
+
 import { Icons } from "./Icons";
 import Button from "./Button";
 
@@ -17,6 +19,13 @@ export default function Table<T>({columns, data, className}: TableProps<T>) {
     const getValue = (obj: any, path: string) => {
         return path.split(".").reduce((value, key) => value?.[key], obj);
     };
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const rowsPerPage = 20;
+    const totalPages = Math.ceil(data.length / rowsPerPage);
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const currentData = data.slice(startIndex, startIndex + rowsPerPage);
+
     return(
         <div className={clsx("w-full overflow-x-auto", className)}>
             <table className="min-w-full border border-[#28B5FB] border-collapse">
@@ -34,7 +43,7 @@ export default function Table<T>({columns, data, className}: TableProps<T>) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((row, i) => (
+                    {currentData.map((row, i) => (
                         <tr
                             key={i}
                             className="bg-white hover:bg-blue-50"
@@ -66,6 +75,27 @@ export default function Table<T>({columns, data, className}: TableProps<T>) {
                     ))}
                 </tbody>
             </table>
+            <div className="flex justify-between items-center mt-4">
+                <Button
+                    onClick={() => setCurrentPage((page) => Math.max(page - 1, 1))}
+                    disabled={currentPage === 1}
+                >
+                    Previous
+                </Button>
+
+                <span className="text-[#1A2F43] font-medium">
+                    Page {currentPage} of {totalPages}
+                </span>
+
+                <Button
+                    onClick={() =>
+                    setCurrentPage((page) => Math.min(page + 1, totalPages))
+                    }
+                    disabled={currentPage === totalPages}
+                >
+                    Next
+                </Button>
+            </div>
         </div>
     )
 }
