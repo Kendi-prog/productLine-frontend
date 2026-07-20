@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
+
 import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
 import Modal from "../../components/Modal";
@@ -11,9 +13,9 @@ type Payments = {
   // checkNumber: String;
   id: {
     customerNumber: number;
-    checkNumber: String;
+    checkNumber: string;
   }
-  paymentDate: String;
+  paymentDate: string;
   amount: number;
 }
 
@@ -27,12 +29,20 @@ const columns: { label: string, accessor: string} [] = [
 
 const Payments = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("q")?.toLowerCase() || "";
 
   const { data = [], isLoading, isError } = useQuery({
-      queryKey: ['/customers'],
+      queryKey: ['/payments'],
       queryFn: fetchPayments
     });
-  
+
+  const filteredPayments = data.filter((payment: Payments) =>
+    payment.id.customerNumber.toString().includes(search) ||
+    payment.id.checkNumber?.toLowerCase().includes(search) ||
+    String(payment.paymentDate).toLowerCase().includes(search)
+  );
+
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Failed Loading Customers!!</div>
 
@@ -43,7 +53,7 @@ const Payments = () => {
         subtitle="Stay on top of transactions — organized and secure."
         onAddClick={() => setIsModalOpen(true)}
       >
-          <Table columns={columns} data={data} />
+          <Table columns={columns} data={filteredPayments} />
       </BaseLayout>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <PaymentForm onClose={() => setIsModalOpen(false)}/>

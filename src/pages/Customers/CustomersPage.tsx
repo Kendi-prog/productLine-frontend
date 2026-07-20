@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
+
 import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
 import Modal from "../../components/Modal";
@@ -47,11 +49,23 @@ const columns: { label: string; accessor: string }[] = [
 
 const Customers = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("q")?.toLowerCase() || "";
 
   const { data = [], isLoading, isError } = useQuery({
     queryKey: ['/customers'],
     queryFn: fetchCustomers
   });
+
+  const filteredCustomers = data.filter((customer: Customer) =>
+    customer.customerNumber.toString().includes(search) ||
+    customer.customerName.toLowerCase().includes(search) ||
+    customer.contactLastName.toLowerCase().includes(search) ||
+    customer.contactFirstName.toLowerCase().includes(search) ||
+    customer.phone.includes(search) ||
+    customer.addressLine1.toLowerCase().includes(search) ||
+    customer.city.toLowerCase().includes(search)
+  );
 
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Failed Loading Customers!!</div>
@@ -63,7 +77,7 @@ const Customers = () => {
         subtitle="Know your people — every relationship starts here."
         onAddClick={() => setIsModalOpen(true)}
       >
-          <Table columns={columns} data={data} />
+          <Table columns={columns} data={filteredCustomers} />
       </BaseLayout> 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} >
         <CustomerForm onClose={() => setIsModalOpen(false)}/>

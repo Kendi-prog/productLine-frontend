@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchOffices } from "../../api/offices";
+import { useSearchParams } from "react-router-dom";
 
+import { fetchOffices } from "../../api/offices";
 import FlipCard from "../../components/FlipCard";
 import BaseLayout from "../../layouts/BaseLayout";
 import { Icons } from "../../components/Icons";
@@ -23,11 +24,19 @@ type Office = {
 
 const Offices = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("q")?.toLowerCase() || "";
 
   const { data = [], isLoading, isError } = useQuery({
     queryKey: ["/offices"],
     queryFn: fetchOffices,
   });
+
+  const filteredOffices = data.filter((office: Office) =>
+    office.officeCode.toLowerCase().includes(search) ||
+    office.city.toLowerCase().includes(search) ||
+    office.country.toLowerCase().includes(search) 
+  );
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Failed Loading Offices!!</div>;
@@ -41,7 +50,7 @@ const Offices = () => {
         className="p-6"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {data.map((office: Office) => (
+          {filteredOffices.map((office: Office) => (
             <FlipCard
               key={office.officeCode}
               className="h-72"

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
+
 import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
 import Modal from "../../components/Modal";
@@ -30,11 +32,19 @@ const columns: { label: string; accessor: string }[] = [
 
 const Orders = () => {
   const[isModalOpen, setIsModalOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("q")?.toLowerCase() || "";
 
   const { data = [], isLoading, isError } = useQuery({
     queryKey: ['/orders'],
     queryFn: fetchOrders
   });
+
+  const filteredOrders = data.filter((order: Order) =>
+    order.orderNumber.toString().includes(search) ||
+    order.status.toLowerCase().includes(search) ||
+    order.customer.customerNumber.toString().includes(search)
+  );
 
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Failed Loading Orders!!</div>
@@ -47,7 +57,7 @@ const Orders = () => {
         subtitle="Track orders with ease and never miss a delivery."
         onAddClick={() => setIsModalOpen(true)}
       >
-          <Table columns={columns} data={data} />
+          <Table columns={columns} data={filteredOrders} />
       </BaseLayout> 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <OrderForm onClose={() => setIsModalOpen(false)}/>

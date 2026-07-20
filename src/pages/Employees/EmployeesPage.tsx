@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import BaseLayout from "../../layouts/BaseLayout";
 import FlipCard from "../../components/FlipCard";
 import Modal from "../../components/Modal";
@@ -26,11 +28,20 @@ type Employees = {
 
 const Employees = () => {
   const[isModalOpen, setIsModalOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("q")?.toLowerCase() || "";
 
   const { data = [], isLoading, isError } = useQuery({
     queryKey: ['/employees'],
     queryFn: fetchEmployees
   });
+
+  const filteredEmployees = data.filter((emp: Employees) =>
+    emp.employeeNumber.toString().includes(search) ||
+    emp.firstName.toLowerCase().includes(search) ||
+    emp.lastName.toLowerCase().includes(search) ||
+    emp.jobTitle.toLowerCase().includes(search)
+  );
 
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Failed Loading Customers!!</div>
@@ -43,7 +54,7 @@ const Employees = () => {
         onAddClick={() => setIsModalOpen(true)}
       >
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-            {data.map((emp: Employees) => (
+            {filteredEmployees.map((emp: Employees) => (
             <FlipCard
               key={emp.employeeNumber}
               className="h-64"

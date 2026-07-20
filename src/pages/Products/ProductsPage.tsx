@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
+
 import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
 import ProductForm from "./ProductForm";
@@ -31,14 +33,21 @@ const columns: { label: string; accessor: keyof Product }[] = [
 ];
 
 
-
 const Products = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("q")?.toLowerCase() || "";
 
   const { data = [], isLoading, isError } = useQuery({
     queryKey: ['/products'],
     queryFn: fetchProducts
   });
+
+  const filteredProducts = data.filter((product: Product) =>
+    product.productName.toLowerCase().includes(search) ||
+    product.productCode.toLowerCase().includes(search) ||
+    product.productVendor.toLowerCase().includes(search)
+  );
 
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Failed Loading Products!!</div>
@@ -51,7 +60,7 @@ const Products = () => {
         subtitle="Manage your inventory effortlessly and keep your catalog sharp."
         onAddClick={() => setIsModalOpen(true)}
       >
-        <Table columns={columns} data={data} /> 
+        <Table columns={columns} data={filteredProducts} /> 
       </BaseLayout> 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} >
         <ProductForm onClose={() => setIsModalOpen(false)} />
