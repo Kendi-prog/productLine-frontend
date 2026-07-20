@@ -1,19 +1,56 @@
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+
+import { fetchProducts } from "../../api/products";
+import { fetchOrders } from "../../api/orders";
+import { fetchCustomers } from "../../api/customers";
 
 import PageHeader from "../../components/PageHeader";
 import Card from "../../components/Card";
 import Button from "../../components/Button";
 import { Icons } from "../../components/Icons";
 
-const stats = [
-  { label: "Products", count: 120, route: "/products", icon: "products" },
-  { label: "Orders", count: 45, route: "/orders", icon: "orders" },
-  { label: "Customers", count: 89, route: "/customers", icon: "customers" },
-];
 
 
 const Home = () => {
     const navigate = useNavigate();
+
+    const { data: products = [] } = useQuery({
+        queryKey: ['/products'],
+        queryFn: fetchProducts
+    });
+
+    const { data: orders = [] } = useQuery({
+        queryKey: ['/orders'],
+        queryFn: fetchOrders
+    });
+
+    const { data: customers = [] } = useQuery({
+        queryKey: ['/customers'],
+        queryFn: fetchCustomers
+    });
+    
+    const stats = [
+        { 
+            label: "Products", 
+            count: products.length, 
+            route: "/products", 
+            icon: "products" 
+        },
+        { 
+            label: "Orders", 
+            count: orders.length, 
+            route: "/orders", 
+            icon: "orders" 
+        },
+        { 
+            label: "Customers", 
+            count: customers.length, 
+            route: "/customers", 
+            icon: "customers" 
+        }
+    ];
+
     return (
         <div>
             <PageHeader title="Dashboard" subtitle="Your control center — everything you need, all in one place."/>
