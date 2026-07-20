@@ -18,24 +18,26 @@ type Customer = {
   state?: string;
   postalCode?: string;
   country: string;
-  salesRepEmployeeNumber?: number;
+  salesRepEmployeeNumber?: {
+    employeeNumber: number;
+  };
   creditLimit?: number;
 };
 
 
-const columns: { label: string; accessor: keyof Customer }[] = [
+const columns: { label: string; accessor: string }[] = [
   { label: "Customer No.", accessor: "customerNumber" },
   { label: "Customer Name", accessor: "customerName" },
   { label: "Last Name", accessor: "contactLastName" },
   { label: "First Name", accessor: "contactFirstName" },
   { label: "Phone", accessor: "phone" },
   { label: "Address Line 1", accessor: "addressLine1" },
-  { label: "Address Line 2", accessor: "addressLine2" },
+  // { label: "Address Line 2", accessor: "addressLine2" },
   { label: "City", accessor: "city" },
-  { label: "State", accessor: "state" },
+  // { label: "State", accessor: "state" },
   { label: "Postal Code", accessor: "postalCode" },
   { label: "Country", accessor: "country" },
-  { label: "Sales Rep No.", accessor: "salesRepEmployeeNumber" },
+  { label: "Sales Rep No.", accessor: "salesRepEmployeeNumber.employeeNumber" },
   { label: "Credit Limit", accessor: "creditLimit" },
 ];
 
