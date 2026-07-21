@@ -22,11 +22,11 @@ type Order = {
   };
 };
 
-const columns: { label: string; accessor: string }[] = [
+const columns: { label: string; accessor: string; type?: "date" | "money"; }[] = [
   { label: "Order Number", accessor: "orderNumber" },
-  { label: "Order Date", accessor: "orderDate" },
-  { label: "Required Date", accessor: "requiredDate" },
-  { label: "Shipped Date", accessor: "shippedDate" },
+  { label: "Order Date", accessor: "orderDate", type: "date" },
+  { label: "Required Date", accessor: "requiredDate", type: "date" },
+  { label: "Shipped Date", accessor: "shippedDate", type: "date" },
   { label: "Status", accessor: "status" },
   { label: "Customer Number", accessor: "customer.customerNumber" },
 ];

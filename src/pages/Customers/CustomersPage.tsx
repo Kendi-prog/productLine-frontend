@@ -31,7 +31,7 @@ type Customer = {
 };
 
 
-const columns: { label: string; accessor: string }[] = [
+const columns: { label: string; accessor: string; type?: "date" | "money"; }[] = [
   { label: "Customer No.", accessor: "customerNumber" },
   { label: "Customer Name", accessor: "customerName" },
   { label: "Last Name", accessor: "contactLastName" },
@@ -44,8 +44,8 @@ const columns: { label: string; accessor: string }[] = [
   { label: "Postal Code", accessor: "postalCode" },
   { label: "Country", accessor: "country" },
   { label: "Sales Rep No.", accessor: "salesRepEmployeeNumber.employeeNumber" },
-  { label: "Credit Limit", accessor: "creditLimit" },
-];
+  { label: "Credit Limit", accessor: "creditLimit", type: "money" },
+]
 
 
 

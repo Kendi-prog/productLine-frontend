@@ -26,11 +26,11 @@ type DeletePaymentData = {
     checkNumber: string;
 };
 
-const columns: { label: string, accessor: string} [] = [
+const columns: { label: string, accessor: string; type?: "date" | "money";} [] = [
   {label: "Customer No.", accessor: "id.customerNumber"},
   {label: "Check No.", accessor: "id.checkNumber"},
-  {label: "Payment Date.", accessor: "paymentDate"},
-  {label: "Amount", accessor: "amount"}
+  {label: "Payment Date.", accessor: "paymentDate", type: "date"},
+  {label: "Amount", accessor: "amount", type: "money"}
 ]
 
 

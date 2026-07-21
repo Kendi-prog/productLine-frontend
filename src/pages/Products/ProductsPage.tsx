@@ -22,15 +22,15 @@ type Product = {
 };
 
 
-const columns: { label: string; accessor: keyof Product }[] = [
+const columns: { label: string; accessor: keyof Product; type?: "date" | "money"; }[] = [
   { label: "Product Code", accessor: "productCode" },
   { label: "Product Name", accessor: "productName" },
   { label: "Product Line", accessor: "productLine" },
   { label: "Product Scale", accessor: "productScale" },
   { label: "Vendor", accessor: "productVendor" },
   { label: "In Stock", accessor: "quantityInStock" },
-  { label: "Buy Price", accessor: "buyPrice" },
-  { label: "MSRP", accessor: "msrp" },
+  { label: "Buy Price", accessor: "buyPrice", type: "money" },
+  { label: "MSRP", accessor: "msrp", type: "money" },
 ];
 
 

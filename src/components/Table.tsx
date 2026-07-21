@@ -7,6 +7,7 @@ import Button from "./Button";
 type Column<T> = {
     label: string;
     accessor: string;
+    type?: "date" | "money";
 }
 
 type TableProps<T> = {
@@ -28,6 +29,28 @@ export default function Table<T>({
 }: TableProps<T>) {
     const getValue = (obj: any, path: string) => {
         return path.split(".").reduce((value, key) => value?.[key], obj);
+    };
+
+    const formatValue = (value: any, type?: "date" | "money") => {
+
+        if (type === "date" && Array.isArray(value)) {
+            const [year, month, day] = value;
+
+            return new Date(year, month - 1, day).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+            });
+        }
+
+        if (type === "money" && typeof value === "number") {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+            }).format(value);
+        }
+
+        return value;
     };
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -63,7 +86,7 @@ export default function Table<T>({
                                 key={col.label as string}
                                 className="border border-[#28B5FB] px-4 py-2 text-[#1A2F43]"
                                 >
-                                {String(getValue(row, col.accessor))}
+                                {String(formatValue(getValue(row, col.accessor), col.type))}
                                
                                 </td>
                             ))}
