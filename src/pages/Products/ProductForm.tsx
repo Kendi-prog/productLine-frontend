@@ -2,7 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { createProduct, updateProduct } from "../../api/products";
+import { createProduct, updateProduct } from "../../api/products_api";
 import { Icons } from "../../components/Icons";
 import Button from "../../components/Button";
 

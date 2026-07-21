@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { createEmployee, fetchEmployees } from "../../api/employees";
-import { fetchOffices } from "../../api/offices";
+import { createEmployee, fetchEmployees } from "../../api/employees_api";
+import { fetchOffices } from "../../api/offices_api";
 import { Icons } from "../../components/Icons";
 import Button from "../../components/Button";
 

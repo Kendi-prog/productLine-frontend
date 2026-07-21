@@ -7,7 +7,7 @@ import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
 import Modal from "../../components/Modal";
 import OrderForm from "./OrdersForm";
-import { fetchOrders, deleteOrder } from "../../api/orders";
+import { fetchOrders, deleteOrder } from "../../api/orders_api";
 import Button from "../../components/Button";
 
 type Order = {
@@ -36,6 +36,7 @@ const Orders = () => {
   const[isModalOpen, setIsModalOpen] = useState(false);
   const[selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const[viewOrder, setViewOrder] = useState<Order | null>(null);
+  
   const [searchParams] = useSearchParams();
   const search = searchParams.get("q")?.toLowerCase() || "";
 

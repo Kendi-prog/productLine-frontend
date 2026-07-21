@@ -6,7 +6,7 @@ import BaseLayout from "../../layouts/BaseLayout";
 import FlipCard from "../../components/FlipCard";
 import Modal from "../../components/Modal";
 import EmployeeForm from "./EmployeeForm";
-import { fetchEmployees } from "../../api/employees";
+import { fetchEmployees } from "../../api/employees_api";
 
 type Employees = {
   employeeNumber : number;

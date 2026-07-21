@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import {createPayment, updatePayment} from "../../api/payments";
+import {createPayment, updatePayment} from "../../api/payments_api";
 import { Icons } from "../../components/Icons";
 import Button from "../../components/Button";
 
@@ -56,22 +56,11 @@ export default function PaymentForm ({ payment, onClose }: PaymentFormProps) {
             onClose();
         },
 
-        // onError: () => {
-        //     toast.error(
-        //         payment 
-        //         ? "Failed to update payment."
-        //         : "Failed to create payment."
-        //     );
-        // }
-
-        onError: (error: any) => {
-            console.log("Status:", error.response?.status);
-            console.log("Data:", error.response?.data);
-
+        onError: () => {
             toast.error(
-                error.response?.data?.message ??
-                error.response?.data ??
-                "Failed to create payment."
+                payment 
+                ? "Failed to update payment."
+                : "Failed to create payment."
             );
         }
     });

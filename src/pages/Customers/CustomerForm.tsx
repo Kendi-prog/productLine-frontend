@@ -1,11 +1,12 @@
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
-import { fetchEmployees } from "../../api/employees";
+import { fetchEmployees } from "../../api/employees_api";
+import { createCustomer, updateCustomer } from "../../api/customers_api";
 import { Icons } from "../../components/Icons";
 import Button from "../../components/Button";
-import { createCustomer, updateCustomer } from "../../api/customers";
+
 
 type Customer = {
     customerNumber: number;

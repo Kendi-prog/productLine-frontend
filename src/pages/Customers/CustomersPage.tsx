@@ -7,7 +7,7 @@ import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
 import Modal from "../../components/Modal";
 import CustomerForm from "./CustomerForm";
-import { fetchCustomers, deleteCustomer } from "../../api/customers";
+import { fetchCustomers, deleteCustomer } from "../../api/customers_api";
 import Button from "../../components/Button";
 
 type Customer = {
@@ -38,9 +38,7 @@ const columns: { label: string; accessor: string; type?: "date" | "money"; }[] =
   { label: "First Name", accessor: "contactFirstName" },
   { label: "Phone", accessor: "phone" },
   { label: "Address Line 1", accessor: "addressLine1" },
-  // { label: "Address Line 2", accessor: "addressLine2" },
   { label: "City", accessor: "city" },
-  // { label: "State", accessor: "state" },
   { label: "Postal Code", accessor: "postalCode" },
   { label: "Country", accessor: "country" },
   { label: "Sales Rep No.", accessor: "salesRepEmployeeNumber.employeeNumber" },
@@ -48,18 +46,15 @@ const columns: { label: string; accessor: string; type?: "date" | "money"; }[] =
 ]
 
 
-
-
-
 const Customers = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [viewCustomer, setViewCustomer] = useState<Customer | null>(null);
+
   const [searchParams] = useSearchParams();
   const search = searchParams.get("q")?.toLowerCase() || "";
 
   const queryClient = useQueryClient();
-
   const deleteMutation = useMutation({
       mutationFn: deleteCustomer,
 

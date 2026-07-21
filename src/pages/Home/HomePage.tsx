@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchProducts } from "../../api/products";
-import { fetchOrders } from "../../api/orders";
-import { fetchCustomers } from "../../api/customers";
+import { fetchProducts } from "../../api/products_api";
+import { fetchOrders } from "../../api/orders_api";
+import { fetchCustomers } from "../../api/customers_api";
 
 import PageHeader from "../../components/PageHeader";
 import Card from "../../components/Card";
@@ -66,9 +66,7 @@ const Home = () => {
                                 </div>
                                 <div className="text-6xl font-bold text-[#1A2F43] animate-bounce">
                                     {count}
-                                </div> 
-                              
-                                
+                                </div>    
                             </Card>
                             <Button 
                                 onClick={() => navigate(route)} 

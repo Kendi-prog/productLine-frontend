@@ -6,7 +6,7 @@ import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
 import ProductForm from "./ProductForm";
 import Modal from "../../components/Modal";
-import { deleteProduct,fetchProducts } from "../../api/products";
+import { deleteProduct,fetchProducts } from "../../api/products_api";
 import Button from "../../components/Button";
 
 type Product = {

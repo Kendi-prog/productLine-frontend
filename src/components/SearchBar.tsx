@@ -1,6 +1,5 @@
 import { useSearchParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import clsx from "clsx";
 
 import Button from "./Button";
 import { Icons } from "./Icons";

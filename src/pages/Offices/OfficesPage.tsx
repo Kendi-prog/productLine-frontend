@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
 
-import { fetchOffices } from "../../api/offices";
+import { fetchOffices } from "../../api/offices_api";
 import FlipCard from "../../components/FlipCard";
 import BaseLayout from "../../layouts/BaseLayout";
-import { Icons } from "../../components/Icons";
-import { useState } from "react";
 import OfficeForm from "./OfficeForm";
 import Modal from "../../components/Modal";
 

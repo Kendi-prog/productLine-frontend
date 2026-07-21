@@ -32,7 +32,6 @@ export default function Table<T>({
     };
 
     const formatValue = (value: any, type?: "date" | "money") => {
-
         if (type === "date" && Array.isArray(value)) {
             const [year, month, day] = value;
 

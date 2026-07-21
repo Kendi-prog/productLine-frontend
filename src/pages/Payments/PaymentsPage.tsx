@@ -7,12 +7,10 @@ import BaseLayout from "../../layouts/BaseLayout";
 import Table from "../../components/Table";
 import Modal from "../../components/Modal";
 import PaymentForm from "./PaymentForm";
-import { fetchPayments, deletePayment } from "../../api/payments";
+import { fetchPayments, deletePayment } from "../../api/payments_api";
 import Button from "../../components/Button";
 
 type Payments = {
-  // customerNumber: number;
-  // checkNumber: String;
   id: {
     customerNumber: number;
     checkNumber: string;

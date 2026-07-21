@@ -4,8 +4,8 @@ import toast from "react-hot-toast";
 
 import { Icons } from "../../components/Icons";
 import Button from "../../components/Button";
-import {fetchCustomers} from "../../api/customers";
-import { createOrder, updateOrder } from "../../api/orders";
+import {fetchCustomers} from "../../api/customers_api";
+import { createOrder, updateOrder } from "../../api/orders_api";
 
 type Order = {
     orderNumber: number;
