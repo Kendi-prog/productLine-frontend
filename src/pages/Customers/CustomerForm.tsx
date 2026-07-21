@@ -5,42 +5,71 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchEmployees } from "../../api/employees";
 import { Icons } from "../../components/Icons";
 import Button from "../../components/Button";
-import { createCustomer } from "../../api/customers";
+import { createCustomer, updateCustomer } from "../../api/customers";
 
+type Customer = {
+    customerNumber: number;
+    customerName: string;
+    contactFirstName: string;
+    contactLastName: string;
+    phone: string;
+    addressLine1: string;
+    city: string;
+    postalCode: string;
+    country: string;
+    salesRepEmployeeNumber: any;
+    creditLimit: number;
+};
 
 type CustomerFormProps = {
-    onClose : () => void;
-}
+    customer?: Customer;
+    onClose: () => void;
+};
 
 
-export default function CustomerForm ({ onClose }: CustomerFormProps) {
-   const [formData, setFormData] = useState({
-        customerNumber: 0,
-        customerName: "",
-        contactFirstName: "",
-        contactLastName: "",
-        phone: "",
-        addressLine1: "",
-        city: "",
-        postalCode: "",
-        country: "",
-        salesRepEmployeeNumber: "",
-        creditLimit: 0,
+
+export default function CustomerForm ({ customer, onClose }: CustomerFormProps) {
+  const [formData, setFormData] = useState({
+        customerNumber: customer?.customerNumber ?? 0,
+        customerName: customer?.customerName ?? "",
+        contactFirstName: customer?.contactFirstName ?? "",
+        contactLastName: customer?.contactLastName ?? "",
+        phone: customer?.phone ?? "",
+        addressLine1: customer?.addressLine1 ?? "",
+        city: customer?.city ?? "",
+        postalCode: customer?.postalCode ?? "",
+        country: customer?.country ?? "",
+        salesRepEmployeeNumber:
+            customer?.salesRepEmployeeNumber?.employeeNumber ?? "",
+        creditLimit: customer?.creditLimit ?? 0,
     });
 
     const queryClient = useQueryClient();
-    const createMutation = useMutation({
-        mutationFn: createCustomer,
+    const saveMutation = useMutation({
+        mutationFn: (data: any) =>
+            customer ? updateCustomer(data) : createCustomer(data),
 
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["/customers"] });
-            toast.success("Customer added successfully!");
-            onClose();
+            queryClient.invalidateQueries({
+                queryKey: ["/customers"],
+            });
+
+        toast.success(
+            customer
+                ? "Customer updated successfully!"
+                : "Customer added successfully!"
+        );
+
+        onClose();
         },
 
         onError: () => {
-            toast.error("Failed to add customer.");
-        }
+            toast.error(
+                customer
+                    ? "Failed to update customer."
+                    : "Failed to add customer."
+            );
+        },
     });
 
     const { data: employees = [] } = useQuery({
@@ -59,7 +88,7 @@ export default function CustomerForm ({ onClose }: CustomerFormProps) {
    const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    createMutation.mutate({
+    saveMutation.mutate({
         ...formData,
         salesRepEmployeeNumber: {
             employeeNumber: Number(formData.salesRepEmployeeNumber),
@@ -73,7 +102,7 @@ export default function CustomerForm ({ onClose }: CustomerFormProps) {
             <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center gap-4 text-[#1A2F43] text-xl font-bold">
                     <Icons.customers className="text-[#28B5FB]"/>
-                    Add New Customer
+                    {customer ? "Edit Customer" : "Add New Customer"}
                 </div>
                 <Button onClick={onClose} title="Close">
                     <Icons.close />
@@ -211,7 +240,7 @@ export default function CustomerForm ({ onClose }: CustomerFormProps) {
                         required
                     />
                 </div>
-                <Button type="submit">Add Customer</Button>
+                <Button type="submit">{customer ? "Update Customer" : "Add Customer"}</Button>
             </form>
         </>
     )
