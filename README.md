@@ -63,7 +63,7 @@ The frontend is built with reusable components, client-side routing, efficient s
 ```
 src/
 ├── api/              # API functions grouped by resource
-├── assets/           # Static assets
+├── assets/           # Images
 ├── components/       # Reusable UI components
 ├── layouts/          # Shared application layouts
 ├── pages/            # Feature pages
@@ -151,21 +151,20 @@ http://localhost:5173
 
 ## 📸 Screenshots
 
-## 📸 Screenshots
 
 <p align="center">
-  <img src="screenshots/dashboard.png" alt="Dashboard" width="48%">
-  <img src="screenshots/orders.png" alt="Orders" width="48%">
+  <img src="src/assets/dashboard.png" alt="Dashboard" width="48%">
+  <img src="src/assets/orders.png" alt="Orders" width="48%">
 </p>
 
 <p align="center">
-  <img src="screenshots/office.png" alt="Office" width="48%">
-  <img src="screenshots/details.png" alt="Customer Details" width="48%">
+  <img src="src/assets/office.png" alt="Office" width="48%">
+  <img src="src/assets/details.png" alt="Customer Details" width="48%">
 </p>
 
 <p align="center">
-  <img src="screenshots/search.png" alt="Search Functionality" width="48%">
-  <img src="screenshots/adding.png" alt="Adding Entities" width="48%">
+  <img src="src/assets/search.png" alt="Search Functionality" width="48%">
+  <img src="src/assets/adding.png" alt="Adding Entities" width="48%">
 </p>
 
 ---
