@@ -29,7 +29,7 @@ const DashboardLayout = () => {
             >
                 <div className={`flex items-center justify-between p-2`}>
                     {!collapsed && (
-                        <div className={"p-4 text-2xl font-bold text-white"}>Dashboard</div>
+                        <div className={"p-4 text-2xl font-bold text-white"}>Productline</div>
                     )} 
                     <button
                         onClick={toggleSidebar}
