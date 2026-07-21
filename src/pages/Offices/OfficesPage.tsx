@@ -79,12 +79,12 @@ const Offices = () => {
                     {office.phone}
                   </p>
                   <p>
-                    <span className="font-semibold">Address:</span>{" "}
+                    <span className="font-semibold">Address Line 1:</span>{" "}
                     {office.addressLine1}
                   </p>
                   {office.addressLine2 && (
                     <p>
-                      <span className="font-semibold">Address 2:</span>{" "}
+                      <span className="font-semibold">Address Line 2:</span>{" "}
                       {office.addressLine2}
                     </p>
                   )}

@@ -5,34 +5,70 @@ import toast from "react-hot-toast";
 import { Icons } from "../../components/Icons";
 import Button from "../../components/Button";
 import {fetchCustomers} from "../../api/customers";
-import { createOrder } from "../../api/orders";
+import { createOrder, updateOrder } from "../../api/orders";
+
+type Order = {
+    orderNumber: number;
+    orderDate: number[];
+    requiredDate: number[];
+    shippedDate?: number[];
+    status: string;
+    customer: {
+        customerNumber: number;
+    };
+};
+
+type OrderFormData = {
+    orderNumber: number;
+    orderDate: string;
+    requiredDate: string;
+    shippedDate: string;
+    status: string;
+    customer: string;
+};
 
 type OrderFormProps = {
+    order?: Order;
     onClose : () => void;
 }
 
-export default function OrderForm ({ onClose }: OrderFormProps) {
-    const [formData, setFormData] = useState({
-        orderNumber: 0,
-        orderDate: "",
-        requiredDate: "",
-        shippedDate: "",
-        status: "",
-        customer: "",
+const formatDate = (date?: number[]) => {
+    if (!date) return "";
+    const [year, month, day] = date;
+
+    return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+};
+
+export default function OrderForm ({ order, onClose }: OrderFormProps) {
+    const [formData, setFormData] = useState<OrderFormData>({
+        orderNumber:  order?.orderNumber ?? 0,
+        orderDate: formatDate(order?.orderDate),
+        requiredDate: formatDate(order?.requiredDate),
+        shippedDate: formatDate(order?.shippedDate),
+        status: order?.status ?? "",
+        customer: order?.customer.customerNumber.toString() ?? "",
     });
 
     const queryClient = useQueryClient();
-    const createMutation = useMutation({
-        mutationFn: createOrder,
-
+    const saveMutation = useMutation({
+        mutationFn: (data: OrderFormData | any) =>
+                    order ? updateOrder(data) : createOrder(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["/orders"] });
-            toast.success("Order created successfully!");
+            toast.success(
+                order 
+                ? "Order updated successfully!" 
+                : "Order created successfully!"
+            );
             onClose();
         },
 
         onError: () => {
-            toast.error("Failed to create order.");
+            toast.error(
+                order 
+                ? "Failed to update order."
+                : "Failed to create order."
+            );
         }
     });
 
@@ -47,7 +83,7 @@ export default function OrderForm ({ onClose }: OrderFormProps) {
    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        createMutation.mutate({
+        saveMutation.mutate({
             ...formData,
             customer: {
                 customerNumber: Number(formData.customer),
@@ -66,7 +102,7 @@ export default function OrderForm ({ onClose }: OrderFormProps) {
             <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center gap-4 text-[#1A2F43] text-xl font-bold">
                     <Icons.orders className="text-[#28B5FB]"/>
-                    Create New Order
+                    {order ? "Edit Order" : "Add Order"}
                 </div>
                 <Button onClick={onClose} title="Close">
                     <Icons.close />
@@ -149,7 +185,7 @@ export default function OrderForm ({ onClose }: OrderFormProps) {
                         ))}
                     </select>
                 </div>
-                <Button type="submit">Add Order</Button>
+                <Button type="submit">{order ? "Update Order" : "Add Order"}</Button>
             </form> 
         </>
     )
