@@ -1,4 +1,4 @@
-# ProductLine Frontend
+# Classic Models Frontend
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3-6DB33F?logo=springboot&logoColor=white)
@@ -126,7 +126,7 @@ Data fetching and caching are handled using **TanStack React Query**, providing:
 
 ```bash
 git clone <repository-url>
-cd productline-frontend
+cd classicmodels-frontend
 ```
 
 ### Install dependencies
