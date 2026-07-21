@@ -15,7 +15,7 @@ The frontend is built with reusable components, client-side routing, efficient s
 
 ## 🌐 Live Demo
 
-**Frontend:** https://YOUR-VERCEL-URL.vercel.app
+**Frontend:** https://product-line-frontend.vercel.app
 
 **Backend API:** https://productline-backend-production.up.railway.app/api
 
